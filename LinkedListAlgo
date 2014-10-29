@@ -1,4 +1,4 @@
-public LinkedListNode cloneLinkedList(LinkedListNode head)
+        public LinkedListNode cloneLinkedList(LinkedListNode head)
 	{
 		HashMap<LinkedListNode, LinkedListNode> hm = new HashMap<LinkedListNode, LinkedListNode>();
 		LinkedListNode node = head;
@@ -34,14 +34,14 @@ public LinkedListNode cloneLinkedList(LinkedListNode head)
 		}
 		return hm.get(head);
 	}
-public LinkedListNode flattenLinkedList(LinkedListNode a)
+        public LinkedListNode flattenLinkedList(LinkedListNode a)
 	{
 		if(a == null || a.next == null)
 			return a;
 		return mergeLinkedList(a, flattenLinkedList(a.next));
 	}
-public LinkedListNode mergeLinkedList(LinkedListNode a, LinkedListNode b)
-{
+        public LinkedListNode mergeLinkedList(LinkedListNode a, LinkedListNode b)
+        {
 		LinkedListNode result = null;
 		if(a == null)
 			return b;
@@ -58,8 +58,8 @@ public LinkedListNode mergeLinkedList(LinkedListNode a, LinkedListNode b)
 			result.next = mergeLinkedList(a, b.next);
 		}
 		return result;
-}
-public LinkedListNode reverseAlternateK(LinkedListNode head, int k, boolean flag) //O(n)
+        }
+        public LinkedListNode reverseAlternateK(LinkedListNode head, int k, boolean flag) //O(n)
 	{
 		if(head == null)
 			return null;
@@ -89,7 +89,7 @@ public LinkedListNode reverseAlternateK(LinkedListNode head, int k, boolean flag
 			return head;
 		}
 	}
-/*----*/
+        /*----*/
 	LinkedListNode ptr1 = null;
 	LinkedListNode ptr2 = null;
 	public LinkedListNode intersectionPoint(LinkedListNode a, LinkedListNode b)
