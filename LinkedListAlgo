@@ -1,0 +1,150 @@
+public LinkedListNode cloneLinkedList(LinkedListNode head)
+	{
+		HashMap<LinkedListNode, LinkedListNode> hm = new HashMap<LinkedListNode, LinkedListNode>();
+		LinkedListNode node = head;
+		LinkedListNode newNode = null;
+		while(node != null)
+		{
+			newNode = new LinkedListNode(node.data, null, null);
+			hm.put(node, newNode);
+			node = node.next;
+		}
+		node = head;
+		LinkedListNode nextNode = null;
+		LinkedListNode arbitNode = null;
+		LinkedListNode cloneNode = null;
+		LinkedListNode cloneNext = null;
+		LinkedListNode cloneArbit = null;
+		while(node != null)
+		{
+			nextNode = node.next;
+			arbitNode = node.arbit;
+			cloneNode = hm.get(node);
+			if(node.next != null)
+			{
+				cloneNext = hm.get(nextNode);
+			}
+			if(node.arbit != null)
+			{
+				cloneArbit = hm.get(arbitNode);
+			}
+			cloneNode.next = (node.next == null)? null: cloneNext;
+			cloneNode.arbit = (node.arbit == null)? null: cloneArbit;
+			hm.put(node, cloneNode);
+		}
+		return hm.get(head);
+	}
+public LinkedListNode flattenLinkedList(LinkedListNode a)
+	{
+		if(a == null || a.next == null)
+			return a;
+		return mergeLinkedList(a, flattenLinkedList(a.next));
+	}
+public LinkedListNode mergeLinkedList(LinkedListNode a, LinkedListNode b)
+{
+		LinkedListNode result = null;
+		if(a == null)
+			return b;
+		else if(b == null)
+			return a;
+		else if(a.data < b.data)
+		{
+			result = a;
+			result.next = mergeLinkedList(a.next, b);
+		}
+		else 
+		{
+			result = b;
+			result.next = mergeLinkedList(a, b.next);
+		}
+		return result;
+}
+public LinkedListNode reverseAlternateK(LinkedListNode head, int k, boolean flag) //O(n)
+	{
+		if(head == null)
+			return null;
+		LinkedListNode curr = head;
+		LinkedListNode prev = null;
+		LinkedListNode next;
+		int count = 1;
+		while(curr != null && count <= k)
+		{
+			next = curr.next;
+			if(flag == true)
+			{
+				curr.next = prev;
+			}
+			prev = curr;
+			curr = next;
+			count++;
+		}
+		if(flag == true)
+		{
+			head.next = reverseAlternateK(curr, k, !flag);
+			return prev;
+		}
+		else
+		{
+			prev.next = reverseAlternateK(curr, k, !flag);
+			return head;
+		}
+	}
+/*----*/
+	LinkedListNode ptr1 = null;
+	LinkedListNode ptr2 = null;
+	public LinkedListNode intersectionPoint(LinkedListNode a, LinkedListNode b)
+	{
+		int aLen = getLength(a);
+		int bLen = getLength(b);
+		if(aLen < bLen)
+		{
+			fixPointer(b, aLen);
+			ptr2 = a;
+		}
+		else if(aLen > bLen)
+		{
+			fixPointer(a, bLen);
+			ptr2 = b;
+		}
+		else {
+			ptr1 = a;
+			ptr2 = b;
+		}
+		while(ptr1.next!= null && ptr2.next!= null)
+		{
+			if(ptr1 == ptr2)
+				return ptr1;
+			ptr1 = ptr1.next;
+			ptr2 = ptr2.next;
+		}
+		return null;
+	}
+	public void fixPointer(LinkedListNode node, int len)
+	{
+		while(len > 1)
+		{
+			node = node.next;
+			len--;
+		}
+		ptr1 = node;
+	}
+class LinkedListNode 
+{
+	int data;
+	LinkedListNode next;
+
+	@Override
+	public int hashCode()
+	{
+		return this.data;
+	}
+	@Override 
+	public boolean equals(Object o)
+	{
+		LinkedListNode node = (LinkedListNode)o;
+		if(this.data == node.data)
+			return true;
+		else
+			return false;
+	}
+}
